@@ -2,11 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var MatchResult_1 = require("./MatchResult");
 var MatchReader_1 = require("./MatchReader");
-// we add the encoding flag to return us a formatted string of the contents of the csv
-var reader = new MatchReader_1.MatchReader('football.csv');
-reader.read();
+var CsvFileReader_1 = require("./CsvFileReader");
+// Create am object that satisfies the 'DataReader' interface
+var csvFileReader = new CsvFileReader_1.CsvFileReader('football.csv');
+var matchReader = new MatchReader_1.MatchReader(csvFileReader);
+matchReader.load();
 var manUWins = 0;
-for (var _i = 0, _a = reader.data; _i < _a.length; _i++) {
+for (var _i = 0, _a = matchReader.matches; _i < _a.length; _i++) {
     var match = _a[_i];
     if (match[1] === 'Man United' && match[5] === MatchResult_1.MatchResult.HomeWin) {
         manUWins++;
